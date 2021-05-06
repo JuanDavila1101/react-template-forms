@@ -3,19 +3,25 @@ import {
   FormGroup, Form, Label, Input, Button
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { addStudent } from '../helpers/data/studentData';
+import { addStudent, updateStudent } from '../helpers/data/studentData';
 
 const StudentForm = ({
-  formTitle
+  formTitle,
+  setStudents,
+  firebaseKey,
+  name,
+  teacher,
+  grade
 }) => {
-  const [student, setStudents] = useState({
-    name: '',
-    teacher: '',
-    grade: 0,
+  const [student, setStudent] = useState({
+    firebaseKey: firebaseKey || null,
+    name: name || '',
+    teacher: teacher || '',
+    grade: grade || 0,
   });
 
   const handleInputChange = (e) => {
-    setStudents((prevState) => ({
+    setStudent((prevState) => ({
       ...prevState,
       [e.target.name]:
         e.target.name === 'grade' ? Number(e.target.value) : e.target.value,
@@ -25,8 +31,7 @@ const StudentForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (student.firebaseKey) {
-      console.warn('Do you want to upddete this Student');
-      // updateSTudent(student).then((studentArray) => setStudent(studentArray);)
+      updateStudent(student).then((studentArray) => setStudents(studentArray));
     } else {
       addStudent(student).then((studentArray) => setStudents(studentArray));
     }
@@ -81,6 +86,8 @@ const StudentForm = ({
 
 StudentForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
+  setStudents: PropTypes.func,
+  firebaseKey: PropTypes.string,
   name: PropTypes.string,
   teacher: PropTypes.string,
   grade: PropTypes.Number,

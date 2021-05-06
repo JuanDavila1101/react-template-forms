@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import StudentForm from '../components/StudentForm';
-import './App.scss';
 import { getStudents } from '../helpers/data/studentData';
 import StudentCard from '../components/StudentCard';
+import './App.scss';
+import '../styles/index.scss';
 
 function App() {
   const [students, setStudents] = useState([]);

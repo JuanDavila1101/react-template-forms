@@ -24,11 +24,10 @@ const addStudent = (studentObject) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-// const deleteStudent = (firebaseKey) => new Promise((resolve, reject) => {
-//   axios.delete(`${dbUrl}/students/${firebaseKey}.json`)
-//     // .then(() => getStudents().then((studentArray) => resolve(studentArray)))
-//     .then(() => console.warn('na'))
-//     .catch((error) => reject(error));
-// });
+const deleteStudent = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/students/${firebaseKey}.json`)
+    .then(() => getStudents().then((studentArray) => resolve(studentArray)))
+    .catch((error) => reject(error));
+});
 
-export { addStudent, getStudents };
+export { addStudent, getStudents, deleteStudent };

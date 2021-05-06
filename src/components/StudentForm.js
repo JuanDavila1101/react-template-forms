@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import {
+  FormGroup, Form, Label, Input, Button
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 import { addStudent } from '../helpers/data/studentData';
 
@@ -27,22 +30,16 @@ const StudentForm = ({
     } else {
       addStudent(student).then((studentArray) => setStudents(studentArray));
     }
-
-    setStudents({
-      name: '',
-      teacher: '',
-      grade: 0,
-      firebaseKey: null
-    });
   };
 
   return (
     <>
     <div className='student-form'>
-      <form id='addStudentForm' autoComplete='off' onSubmit={handleSubmit}>
+      <Form id='addStudentForm' autoComplete='off' onSubmit={handleSubmit}>
         <h2>{formTitle}</h2>
-          <label>Name:</label>
-          <lnput
+        <FormGroup>
+          <Label>Name:</Label>
+          <Input
             name='name'
             id='name'
             value={student.name}
@@ -50,26 +47,33 @@ const StudentForm = ({
             placeholder='Enter a Student Name'
             onChange={handleInputChange}
           />
-          <label>Teacher:</label>
-          <input
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Teacher:</Label>
+          <Input
             name='teacher'
             id='teacher'
-            value={student.name}
+            value={student.teacher}
             type='text'
             placeholder='Enter a Teacher Name'
             onChange={handleInputChange}
           />
+        </FormGroup>
+
+        <FormGroup>
           <label>Grade:</label>
           <input
             name='grade'
             id='grade'
-            value={student.name}
+            value={student.grade}
             type='number'
             placeholder='Enter a Grade'
             onChange={handleInputChange}
           />
-        <butons type='submit'>Submit</butons>
-      </form>
+        </FormGroup>
+        <Button type='submit'>Submit</Button>
+      </Form>
     </div>
     </>
   );
@@ -77,7 +81,6 @@ const StudentForm = ({
 
 StudentForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
-  setStudents: PropTypes.func,
   name: PropTypes.string,
   teacher: PropTypes.string,
   grade: PropTypes.Number,
